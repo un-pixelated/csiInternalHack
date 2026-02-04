@@ -98,6 +98,20 @@
     color: #25637B; /* blue color */
 }
 
+
+<div style="margin-bottom: 20px;">
+    <input type="text" id="username" placeholder="Username" style="padding: 8px; border-radius: 8px; border:none;">
+    <input type="password" id="password" placeholder="Password" style="padding: 8px; border-radius: 8px; border:none;">
+    
+    <div style="margin-top: 10px;">
+        <button onclick="login(document.getElementById('username').value, document.getElementById('password').value)" style="cursor:pointer; padding: 5px 10px; border-radius: 5px; border:none; background: #25637B; color: white;">Login</button>
+        
+        <button onclick="register(document.getElementById('username').value, document.getElementById('password').value)" style="cursor:pointer; padding: 5px 10px; border-radius: 5px; border:none; background: #fff; color: #25637B;">Register</button>
+    </div>
+</div>
+
+<script src="/static/auth.js"></script>
+
     /* START BUTTON */
     .start-btn {
         background: #A9C9DA;
@@ -121,8 +135,10 @@
 <div class="top-strip"></div>
 
 <!-- TASKBAR -->
-<div class="taskbar-items">
-    <span>LEADERBOARD</span>
+<div class="taskbar">
+    <a href="/leaderboard.html" style="text-decoration:none; color:white;">
+        <span>LEADERBOARD</span>
+    </a>
 </div>
 
 <!-- DIAGONAL BACKGROUND -->

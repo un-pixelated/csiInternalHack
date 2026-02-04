@@ -3,14 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Leaderboard</title>
-
-<!-- ⭐ ITIM FONT ⭐ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
 
 <style>
-    /* FORCE ITIM ON EVERYTHING */
+    /* GLOBAL STYLES */
     * {
         font-family: "Itim", cursive !important;
         box-sizing: border-box;
@@ -20,14 +18,13 @@
         margin: 0;
         padding: 0;
         background-color: #E6D7A4;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
     }
 
-    @keyframes fadeIn {
-        0% { opacity: 0; transform: translateY(15px); }
-        100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* TASKBAR */
+    /* TOP BAR */
     .taskbar {
         width: 100%;
         height: 50px;
@@ -38,132 +35,163 @@
         padding-right: 30px;
         color: white;
         font-weight: 600;
-        animation: fadeIn 0.7s ease-out;
+        margin-bottom: 40px;
     }
 
-    .taskbar span {
+    .taskbar a {
+        color: white; 
+        text-decoration: none; 
         margin-left: 20px;
-        cursor: pointer;
-    }
-    .taskbar span:hover {
-        opacity: 0.7;
     }
 
-    /* MAIN CARD */
+    /* CONTAINER FOR THE BOARD */
     .container {
         width: 60%;
-        max-width: 600px;
-        margin: 80px auto;
-        background: rgba(255,255,255,0.35);
-        backdrop-filter: blur(5px);
-        padding: 35px;
-        border-radius: 25px;
-        border: 1px solid rgba(255,255,255,0.4);
-        animation: fadeIn 0.6s ease-out;
+        max-width: 800px;
+        background: rgba(255, 255, 255, 0.25);
+        border: 2px solid rgba(255, 255, 255, 0.6);
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
     }
 
     h1 {
-        text-align: center;
-        font-size: 28px;
-        margin-bottom: 25px;
-        font-weight: 700;
-        color: #25637B; /* updated color */
+        color: #25637B;
+        margin-bottom: 30px;
+        font-size: 36px;
     }
 
-    /* ROW LAYOUT */
+    /* LEADERBOARD ROW STYLES */
     .row {
         display: flex;
-        gap: 10px;
-        margin-bottom: 12px;
-        animation: fadeIn 0.5s ease-out;
+        justify-content: space-between;
+        padding: 15px;
+        border-bottom: 1px solid rgba(256, 256, 256, 0.5);
+        font-size: 20px;
+        color: #555;
     }
 
-    .box {
-        background: #A9C9DA;
-        color: white;
-        padding: 10px 0;
+    .header-row {
+        background-color: rgba(255, 255, 255, 0.4);
         border-radius: 10px;
-        font-size: 18px;
-        font-weight: 600;
-        text-align: center;
+        color: #25637B;
+        font-weight: bold;
+        border-bottom: none;
     }
 
-    .rank {
-        width: 50px;
-    }
+    .box { flex: 1; text-align: center; }
+    .rank { flex: 0.5; } /* Make rank column smaller */
+    .name { flex: 2; text-align: left; padding-left: 20px;} /* Name column wider */
+    .score { flex: 1; font-weight: bold; color: #d9534f; }
 
-    .name {
-        flex: 1;
-    }
-
-    .score {
-        width: 80px;
-    }
-
-    /* ENTER NAME BOX */
+    /* LOGIN BOX STYLES (Kept from your original) */
     .input-box {
-        margin-top: 35px;
-        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 2px dashed rgba(255,255,255,0.5);
     }
-
+    
     input {
         padding: 10px;
-        border-radius: 10px;
+        border-radius: 8px;
         border: none;
-        width: 230px;
-        font-size: 16px;
-        text-align: center;
+        margin: 5px;
+        font-family: 'Itim', cursive;
     }
-</style>
 
+    button {
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-family: 'Itim', cursive;
+        font-size: 16px;
+        transition: 0.2s;
+    }
+
+    .btn-login { background: #25637B; color: white; }
+    .btn-reg { background: white; color: #25637B; }
+    button:hover { opacity: 0.8; }
+
+</style>
 </head>
 <body>
 
-<!-- ⭐ TASKBAR ⭐ -->
-<div class="taskbar">
-    <span>DASHBOARD</span>
-    <span>LEADERBOARD</span>
-</div>
-
-<div class="container">
-    <h1>LEADERBOARD</h1>
-
-    <!-- ⭐ RANK | NAME | SCORE ⭐ -->
-    <div class="row">
-        <div class="box rank">1</div>
-        <div class="box name">a</div>
-        <div class="box score">82</div>
+    <div class="taskbar">
+        <a href="/">DASHBOARD</a>
+        <a href="/difficulty.html">PLAY</a>
     </div>
 
-    <div class="row">
-        <div class="box rank">2</div>
-        <div class="box name">b</div>
-        <div class="box score">71</div>
+    <div class="container">
+        <h1>TOP PLAYERS</h1>
+
+        <div class="row header-row">
+            <div class="box rank">#</div>
+            <div class="box name">PLAYER</div>
+            <div class="box score">SCORE</div>
+        </div>
+
+        <div id="board">
+            <div style="padding:20px;">Loading data...</div>
+        </div>
+
+        <div class="input-box">
+            <p style="color:#25637B; margin-bottom:10px;">Login to save your scores!</p>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <br>
+            <button class="btn-login" onclick="login(document.getElementById('username').value, document.getElementById('password').value)">LOGIN</button>
+            <button class="btn-reg" onclick="register(document.getElementById('username').value, document.getElementById('password').value)">REGISTER</button>
+        </div>
     </div>
 
-    <div class="row">
-        <div class="box rank">3</div>
-        <div class="box name">c</div>
-        <div class="box score">65</div>
-    </div>
+    <script src="/static/auth.js"></script>
+<script>
+    async function loadLeaderboard() {
+        const board = document.getElementById('board');
+        
+        try {
+            console.log("Fetching leaderboard data...");
+            const response = await fetch('/leaderboard'); 
+            
+            if (!response.ok) {
+                const errText = await response.text();
+                throw new Error(`Server Error (${response.status}): ${errText}`);
+            }
+            
+            const data = await response.json();
+            console.log("Data received:", data);
 
-    <div class="row">
-        <div class="box rank">4</div>
-        <div class="box name">d</div>
-        <div class="box score">54</div>
-    </div>
+            // Clear the "Loading..." text
+            board.innerHTML = "";
 
-    <div class="row">
-        <div class="box rank">5</div>
-        <div class="box name">e</div>
-        <div class="box score">43</div>
-    </div>
+            if (data.length === 0) {
+                board.innerHTML = "<div style='padding:20px; font-size:20px;'>No scores yet. Play a game to see your name here!</div>";
+                return;
+            }
 
-    <!-- ENTER NAME -->
-    <div class="input-box">
-        <input type="text" placeholder="Enter your name">
-    </div>
-</div>
+            // Loop through data and create rows
+            data.forEach((player, index) => {
+                const row = document.createElement('div');
+                row.className = 'row'; 
+                row.innerHTML = `
+                    <div class="box rank">${index + 1}</div>
+                    <div class="box name">${player.username}</div>
+                    <div class="box score">${player.score}</div>
+                `;
+                board.appendChild(row);
+            });
 
-</body>
-</html>
+        } catch (error) {
+            console.error("Leaderboard Error:", error);
+            // Show the error on screen so you know what happened
+            board.innerHTML = `<div style='padding:20px; color:red; font-size:18px;'>
+                <strong>Failed to load.</strong><br>
+                ${error.message}
+            </div>`;
+        }
+    }
+
+    // Run this when page loads
+    loadLeaderboard();
+</script>
