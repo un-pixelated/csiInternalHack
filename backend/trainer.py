@@ -31,7 +31,7 @@ def get_word_features(word):
         'unique_chars': len(set(word)),
         'vowel_ratio': len(re.findall(r'[aeiou]', word)) / max(len(word), 1),
         #Words ending in specific suffixes tend to be harder to remember
-        'has_suffix': 1 if any(word.endswith(s) for s in ['tion', 'ing', 'ogy', 'ism']) else 0
+        'has_suffix': 1 if any(word.endswith(s) for s in ['tion', 'ing', 'ogy', 'ism', 'ous', 'ome']) else 0
         }
 
 #The dataset

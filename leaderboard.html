@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Leaderboard</title>
+
+<!-- ⭐ ITIM FONT ⭐ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+
+<style>
+    /* FORCE ITIM ON EVERYTHING */
+    * {
+        font-family: "Itim", cursive !important;
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #E6D7A4;
+    }
+
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(15px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* TASKBAR */
+    .taskbar {
+        width: 100%;
+        height: 50px;
+        background: #A9C9DA; 
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 30px;
+        color: white;
+        font-weight: 600;
+        animation: fadeIn 0.7s ease-out;
+    }
+
+    .taskbar span {
+        margin-left: 20px;
+        cursor: pointer;
+    }
+    .taskbar span:hover {
+        opacity: 0.7;
+    }
+
+    /* MAIN CARD */
+    .container {
+        width: 60%;
+        max-width: 600px;
+        margin: 80px auto;
+        background: rgba(255,255,255,0.35);
+        backdrop-filter: blur(5px);
+        padding: 35px;
+        border-radius: 25px;
+        border: 1px solid rgba(255,255,255,0.4);
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 25px;
+        font-weight: 700;
+        color: #25637B; /* updated color */
+    }
+
+    /* ROW LAYOUT */
+    .row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .box {
+        background: #A9C9DA;
+        color: white;
+        padding: 10px 0;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .rank {
+        width: 50px;
+    }
+
+    .name {
+        flex: 1;
+    }
+
+    .score {
+        width: 80px;
+    }
+
+    /* ENTER NAME BOX */
+    .input-box {
+        margin-top: 35px;
+        text-align: center;
+    }
+
+    input {
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        width: 230px;
+        font-size: 16px;
+        text-align: center;
+    }
+</style>
+
+</head>
+<body>
+
+<!-- ⭐ TASKBAR ⭐ -->
+<div class="taskbar">
+    <span>DASHBOARD</span>
+    <span>LEADERBOARD</span>
+</div>
+
+<div class="container">
+    <h1>LEADERBOARD</h1>
+
+    <!-- ⭐ RANK | NAME | SCORE ⭐ -->
+    <div class="row">
+        <div class="box rank">1</div>
+        <div class="box name">a</div>
+        <div class="box score">82</div>
+    </div>
+
+    <div class="row">
+        <div class="box rank">2</div>
+        <div class="box name">b</div>
+        <div class="box score">71</div>
+    </div>
+
+    <div class="row">
+        <div class="box rank">3</div>
+        <div class="box name">c</div>
+        <div class="box score">65</div>
+    </div>
+
+    <div class="row">
+        <div class="box rank">4</div>
+        <div class="box name">d</div>
+        <div class="box score">54</div>
+    </div>
+
+    <div class="row">
+        <div class="box rank">5</div>
+        <div class="box name">e</div>
+        <div class="box score">43</div>
+    </div>
+
+    <!-- ENTER NAME -->
+    <div class="input-box">
+        <input type="text" placeholder="Enter your name">
+    </div>
+</div>
+
+</body>
+</html>
