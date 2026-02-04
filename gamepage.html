@@ -2,43 +2,166 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Game Page</title>
-
-  <!-- ITIM Font -->
+  <title>Verbal Memory Game</title>
   <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    /* Quick fix for the error message visibility */
+    #word-box { font-size: 30px; line-height: 1.2; word-wrap: break-word; }
+  </style>
 </head>
 <body>
 
-  <!-- Top Blue Bar -->
   <div class="top-bar">
     <div class="menu-right">
-        <a href="leaderboard.html">Leaderboard</a>
+        <a href="/leaderboard.html">Leaderboard</a>
     </div>
-
   </div>
 
-  <!-- Game Area -->
   <div class="game-wrapper">
     <div class="game-card">
-
       <div class="game-stats">
-        <div class="stat-box">LIVES: ♡♡♡</div>
-        <div class="stat-box">SCORE: 0</div>
+        <div class="stat-box" id="lives">LIVES: ♡♡♡</div>
+        <div class="stat-box" id="score">SCORE: 0</div>
       </div>
 
-      <div class="word-display">
-        Randomisedbullfuckery
+      <div style="width: 100%; height: 5px; background: #eee; margin-bottom: 20px; border-radius: 5px;">
+        <div id="timer-bar" style="width: 100%; height: 100%; background: #25637B; transition: width 0.1s linear;"></div>
+      </div>
+
+      <div class="word-display" id="word-box" style="min-height: 100px; display:flex; align-items:center; justify-content:center;">
+        Loading Game Data...
       </div>
 
       <div class="game-buttons">
-        <button class="btn">SEEN</button>
-        <button class="btn">NEW</button>
+        <button class="btn" onclick="handleGuess(true)">SEEN</button>
+        <button class="btn" onclick="handleGuess(false)">NEW</button>
       </div>
-
+      
+      <p id="message" style="color: #666; font-size: 18px; margin-top: 15px; height: 20px;"></p>
     </div>
   </div>
 
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode') || 'medium';
+    
+    let lives = 3;
+    let score = 0;
+    let seenWords = []; 
+    let currentWordObj = null; 
+    let timerInterval = null;
+
+    async function fetchNextWord() {
+        const wordBox = document.getElementById("word-box");
+        const msgBox = document.getElementById("message");
+        
+        msgBox.innerText = "";
+        clearInterval(timerInterval);
+        document.getElementById("timer-bar").style.width = "100%";
+
+        try {
+            // Prepare URL
+            const seenList = seenWords.join(",");
+            const url = `/game/next_word?mode=${mode}&seen_ids=${seenList}`;
+            
+            console.log("Requesting:", url); // Check Console (F12)
+            
+            const response = await fetch(url);
+            
+            // 1. Check for Server Error (500) or Not Found (404)
+            if (!response.ok) {
+                throw new Error(`Server Error: ${response.status} ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            
+            // 2. Check if data is valid
+            if (!data || !data.word) {
+                throw new Error("Received empty data from server");
+            }
+
+            // SUCCESS
+            currentWordObj = data;
+            wordBox.innerText = data.word;
+            startTimer(data.time_limit);
+
+        } catch (error) {
+            console.error("Game Error:", error);
+            // DISPLAY ERROR ON SCREEN
+            wordBox.innerHTML = `<span style="color:red; font-size:20px;">${error.message}</span>`;
+            msgBox.innerText = "Is main.py running?";
+        }
+    }
+
+    function handleGuess(userSaidSeen) {
+        if (!currentWordObj) return;
+        clearInterval(timerInterval);
+        const actuallySeen = currentWordObj.is_memory_test; 
+        
+        if (userSaidSeen === actuallySeen) {
+            score += 10;
+            document.getElementById("score").innerText = "SCORE: " + score;
+            document.getElementById("message").style.color = "green";
+            document.getElementById("message").innerText = "Correct!";
+            if (!actuallySeen) seenWords.push(currentWordObj.word);
+            setTimeout(fetchNextWord, 500);
+        } else {
+            loseLife("Wrong! " + (actuallySeen ? "We had seen that one." : "That was new."));
+        }
+    }
+
+    function startTimer(seconds) {
+        let timeLeft = seconds;
+        const totalTime = seconds;
+        timerInterval = setInterval(() => {
+            timeLeft -= 0.1;
+            document.getElementById("timer-bar").style.width = ((timeLeft / totalTime) * 100) + "%";
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                loseLife("Time's up!");
+            }
+        }, 100);
+    }
+
+    async function loseLife(reason) {
+        lives--;
+        updateLivesUI();
+        document.getElementById("message").style.color = "red";
+        document.getElementById("message").innerText = reason;
+
+        if (lives <= 0) {
+            clearInterval(timerInterval);
+            alert("GAME OVER! Final Score: " + score);
+            await saveScore(); 
+            window.location.href = "/leaderboard.html"; 
+        } else {
+            setTimeout(fetchNextWord, 1500);
+        }
+    }
+
+    function updateLivesUI() {
+        let hearts = "";
+        for(let i=0; i<lives; i++) hearts += "♡";
+        document.getElementById("lives").innerText = "LIVES: " + hearts;
+    }
+
+    async function saveScore() {
+        const token = localStorage.getItem('access_token');
+        if (!token) return;
+        try {
+            await fetch("/game/save", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "token": token },
+                body: JSON.stringify({ score: score, mode: mode })
+            });
+        } catch (e) { console.error(e); }
+    }
+
+    // START GAME
+    window.onload = function() {
+        fetchNextWord();
+    };
+  </script>
 </body>
 </html>
