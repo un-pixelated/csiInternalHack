@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Homepage</title>
+
+<!-- ITIM FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+
+<style>
+    * {
+        font-family: "Itim", cursive !important;
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: #E6D7A4;
+        overflow-x: hidden;
+    }
+
+    /* TOP BAR */
+    .top-strip {
+        width: 100%;
+        height: 50px;
+        background: #A9C9DA;
+    }
+
+    /* TASKBAR TEXT */
+    .taskbar-items {
+        position: absolute;
+        top: 12px;
+        right: 30px;
+        font-size: 14px;
+        color: white;
+        font-weight: 600;
+    }
+    .taskbar-items span {
+        margin-left: 20px;
+        cursor: pointer;
+    }
+    .taskbar-items span:hover {
+        opacity: 0.8;
+    }
+
+    /* FIXED CLEAN DIAGONAL BG */
+    .diagonal {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        height: 500px;
+
+        /* Matches your FIGMA diagonal */
+        background: linear-gradient(
+            135deg,
+            #E6D7A4 33%,
+            #A9C9DA 66%
+        );
+
+        filter: blur(1.5px);
+        z-index: 0;
+    }
+
+    /* FROSTED GLASS CARD */
+    .card {
+        width: 75%;
+        max-width: 850px;
+        height: 350px;
+        background: rgba(255, 255, 255, 0.35);
+        backdrop-filter: blur(6px);
+        border-radius: 25px;
+        border: 1px solid rgba(255,255,255,0.4);
+
+        margin: 120px auto;
+        padding-top: 40px;
+        text-align: center;
+        position: relative;
+        z-index: 5;
+    }
+
+    /* ICON */
+    .icon {
+        font-size: 70px;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    /* TITLE (no stroke, warmer yellow) */
+    .title {
+    font-size: 38px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #25637B; /* blue color */
+}
+
+    /* START BUTTON */
+    .start-btn {
+        background: #A9C9DA;
+        padding: 10px 35px;
+        border-radius: 15px;
+        border: none;
+        cursor: pointer;
+        color: white;
+        font-size: 18px;
+        transition: 0.2s;
+    }
+    .start-btn:hover {
+        opacity: 0.85;
+    }
+</style>
+
+</head>
+<body>
+
+<!-- BLUE HEADER STRIP -->
+<div class="top-strip"></div>
+
+<!-- TASKBAR -->
+<div class="taskbar-items">
+    <span>DASHBOARD</span>
+    <span>LEADERBOARD</span>
+</div>
+
+<!-- DIAGONAL BACKGROUND -->
+<div class="diagonal"></div>
+
+<!-- FROSTED GLASS CARD -->
+<div class="card">
+    <div class="icon">📘</div>
+
+    <div class="title">VERBAL MEMORY TEST</div>
+
+    <button class="start-btn">START!</button>
+</div>
+
+</body>
+</html>
