@@ -1,0 +1,1 @@
+Put the trainer,main and thesaurus files in the same folder. Run trainer and ensure that the resulting json file is in the same folder.Make a subfolder titled static and keep the js file and webpages there. Run the main code before which , install the required modules using requirements.txt
