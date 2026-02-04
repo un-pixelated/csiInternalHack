@@ -1,0 +1,92 @@
+/* Apply ITIM to EVERYTHING */
+* {
+  font-family: 'Itim', cursive;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: #e6d3a3;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🔵 Top Blue Bar */
+.top-bar {
+  width: 100%;
+  background: #8fbcd4;
+  padding: 18px 40px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.menu-right a {
+  margin-left: 25px;
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+}
+
+/* Center Game Card */
+.game-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 🟡 Main Card — LESS opaque */
+.game-card {
+  width: 650px;
+  padding: 70px 60px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.25); /* 25% opacity */
+  border: 2px solid rgba(255,255,255,0.6); /* Soft white stroke */
+  text-align: center;
+}
+
+/* Stats */
+.game-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.stat-box {
+  background: #8fbcd4;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+/* Word */
+.word-display {
+  font-size: 28px;
+  margin: 40px 0 50px;
+  color: #333;
+}
+
+/* Buttons */
+.game-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.btn {
+  background: rgba(70, 95, 120, 0.25); /* Dark desaturated blue, transparent */
+  color: #2f3e4f;
+  border: 2px solid rgba(70, 95, 120, 0.6); /* Stroke */
+  padding: 12px 32px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background: rgba(70, 95, 120, 0.4);
+  transform: scale(1.06);
+}
