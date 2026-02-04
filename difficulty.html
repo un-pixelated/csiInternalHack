@@ -145,10 +145,11 @@
         <h1>Difficulty Modes</h1>
 
         <div class="difficulty-buttons">
-            <button class="difficulty-btn">Easy</button>
-            <button class="difficulty-btn">Medium</button>
-            <button class="difficulty-btn">Hard</button>
+        <a href="gamepage.html"><button class="difficulty-btn">Easy</button></a>
+        <a href="gamepage.html"><button class="difficulty-btn">Medium</button></a>
+        <a href="gamepage.html"><button class="difficulty-btn">Hard</button></a>
         </div>
+
     </div>
 </div>
 
@@ -164,17 +165,7 @@
     </div>
 </div>
 
-<script>
-    const difficultyBtns = document.querySelectorAll('.difficulty-btn');
-    const screens = document.querySelectorAll('.screen');
 
-    difficultyBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            screens[0].classList.remove('active');
-            screens[1].classList.add('active');
-        });
-    });
-</script>
 
 </body>
 </html>
