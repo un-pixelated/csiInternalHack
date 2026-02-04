@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Verbal Memory Test</title>
+
+<!-- ITIM FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+
+<style>
+    * {
+        font-family: "Itim", cursive !important;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: #E6D7A4;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    /* TASKBAR */
+    .taskbar {
+        width: 100%;
+        height: 50px;
+        background: #A9C9DA;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 30px;
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .taskbar span {
+        margin-left: 20px;
+        cursor: pointer;
+    }
+    .taskbar span:hover { opacity: 0.75; }
+
+    /* MAIN CARD (MATCHES LEADERBOARD) */
+    .card {
+        width: 65%;
+        max-width: 700px;
+        margin: 80px auto;
+        background: rgba(255,255,255,0.35);
+        backdrop-filter: blur(6px);
+        padding: 40px;
+        border-radius: 25px;
+        border: 1px solid rgba(255,255,255,0.5);
+        text-align: center;
+    }
+
+    /* DIFFICULTY TITLE (NO STROKE) */
+    h1 {
+        font-size: 36px;
+        color: #25637B;
+        margin-bottom: 40px;
+        font-weight: 700;
+    }
+
+    /* DIFFICULTY BUTTONS */
+    .difficulty-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 10px;
+    }
+
+    .difficulty-btn {
+        background: #A9C9DA;
+        border: none;
+        padding: 18px;
+        border-radius: 15px;
+        width: 240px;
+        margin: 0 auto;
+        cursor: pointer;
+        font-size: 26px;
+        color: white;
+        transition: 0.2s ease;
+    }
+    .difficulty-btn:hover {
+        opacity: 0.85;
+        transform: translateY(-3px);
+    }
+    .difficulty-btn:active {
+        transform: translateY(-1px);
+    }
+
+    /* WELCOME SCREEN TITLE (KEEP STROKE) */
+    .welcome-title {
+        font-size: 34px;
+        font-weight: 700;
+        color: #25637B;
+        margin-bottom: 30px;
+        -webkit-text-stroke: 1.3px white;
+    }
+
+    /* BOOK ICON */
+    .welcome-content .book-icon {
+        font-size: 70px;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    /* START BUTTON */
+    .start-btn {
+        background: #A9C9DA;
+        border: none;
+        border-radius: 15px;
+        padding: 15px 40px;
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+    .start-btn:hover {
+        opacity: 0.85;
+        transform: translateY(-3px);
+    }
+
+    /* SCREEN CONTROL */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+</style>
+</head>
+
+<body>
+
+<!-- TASKBAR -->
+<div class="taskbar">
+   
+    <span>LEADERBOARD</span>
+</div>
+
+<!-- SCREEN 1: Difficulty Selection -->
+<div class="screen active difficulty-screen">
+    <div class="card">
+        <h1>Difficulty Modes</h1>
+
+        <div class="difficulty-buttons">
+            <button class="difficulty-btn">Easy</button>
+            <button class="difficulty-btn">Medium</button>
+            <button class="difficulty-btn">Hard</button>
+        </div>
+    </div>
+</div>
+
+<!-- SCREEN 2: Welcome Screen -->
+<div class="screen welcome-screen">
+    <div class="card welcome-content">
+
+        <div class="book-icon">📘</div>
+
+        <div class="welcome-title">VERBAL MEMORY TEST</div>
+
+        <button class="start-btn">START!</button>
+    </div>
+</div>
+
+<script>
+    const difficultyBtns = document.querySelectorAll('.difficulty-btn');
+    const screens = document.querySelectorAll('.screen');
+
+    difficultyBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            screens[0].classList.remove('active');
+            screens[1].classList.add('active');
+        });
+    });
+</script>
+
+</body>
+</html>
